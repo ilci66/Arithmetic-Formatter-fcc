@@ -1,19 +1,18 @@
 import re
 
 def arithmetic_arranger(problems, solve = False):
-# test = ["32 + 698", "3801 - 2", "45 + 43", "123 + 49"]
-
-  # refornonnums = [^\s0-9.+-]
   if(len(problems) > 5):
     return "Error: Too many problems."
+
   firstLine = ""
   secondLine = ""
   hyphenLine = ""
   totals = ""
   arranged = ""
+  
   for problem in problems:
     if(re.search("[^\s0-9.+-]", problem)):
-      if(re.search("[*]", problem) or re.search("[/]", problem)):
+      if(re.search("[*]", problem) or re.search("[/]",problem)):
         return "Error: Operator must be '+' or '-'."
       return "Error: Numbers must only contain digits."
 
@@ -30,22 +29,17 @@ def arithmetic_arranger(problems, solve = False):
     elif(operator == "-"):
       sum = str(int(firstNum) - int(secondNum))
 
-# rjust() is the key here
-# "    " copied from the example, the distance between problems 
-
-    myLength = 2 + max(len(firstNum), len(secondNum))
+    myLength =max(len(firstNum), len(secondNum)) +2
     top = str(firstNum).rjust(myLength)
     # don't forget to add operator here
     bottom = operator + str(secondNum).rjust(myLength-1)
     result = str(sum).rjust(myLength)
 
-    # create as many hypens as necessary with range()
     line = ""
     for space in range(myLength):
       line += "-"
     
-    # if(problem != problem[problem.length - 1])
-    if(problem != problem[-1]):
+    if(problem != problems[-1]):
       firstLine += top + "    "
       secondLine += bottom + "    "
       hyphenLine += line + "    "
@@ -57,6 +51,7 @@ def arithmetic_arranger(problems, solve = False):
       totals += result
 
   if(solve):
+    print('it true')
     arranged = firstLine + "\n" + secondLine + "\n" + hyphenLine + "\n" + totals
   else:
     arranged = firstLine + "\n" + secondLine + "\n" + hyphenLine
